@@ -13,10 +13,15 @@ import web.service.UserService;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private UserService userService;
+
+//    @Autowired
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @Autowired
-    public UserController(UserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
@@ -25,6 +30,7 @@ public class UserController {
 
         model.addAttribute("users",
                 userService.getAllUsers());
+        System.out.println("В маппинге /");
 
         return "users";
     }
@@ -60,7 +66,7 @@ public class UserController {
                              User user,
                              @PathVariable int id) {
 
-        userService.updateUser(user, id);
+        userService.updateUser(user);
 
         return "redirect:/";
     }
