@@ -15,10 +15,10 @@ public class UserController {
 
     private UserService userService;
 
-//    @Autowired
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -30,7 +30,6 @@ public class UserController {
 
         model.addAttribute("users",
                 userService.getAllUsers());
-        System.out.println("В маппинге /");
 
         return "users";
     }
@@ -63,8 +62,7 @@ public class UserController {
 
     @PostMapping("/{id}/update")
     public String updateUser(@ModelAttribute("user")
-                             User user,
-                             @PathVariable int id) {
+                             User user) {
 
         userService.updateUser(user);
 
@@ -72,7 +70,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable int id) {
+    public String deleteUser(@PathVariable("id") int id) {
 
         userService.deleteUserById(id);
 
