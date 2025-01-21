@@ -3,29 +3,21 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import web.models.User;
 import web.service.UserService;
 
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/")
+    @GetMapping("")
     public String getAllUsers(Model model) {
 
         model.addAttribute("users",
@@ -36,7 +28,7 @@ public class UserController {
 
     @GetMapping("/add")
     public String getAddUserPage(@ModelAttribute("user")
-                                  User user) {
+                                 User user) {
 
         return "add";
     }
